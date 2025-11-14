@@ -28,13 +28,15 @@ def main():
     hand_landmark_detect = Landmark()        
     
     target_positions = [1000]*6
+    # # 记录六个关节的最小值与最大值
+    # min_vals = [99999] * 6
+    # max_vals = [-99999] * 6
 
     while(1):
 
         hand_landmark_detect.detect(alpha = 0.1)
         hand_landmark_detect.draw()
         flexion_data = hand_landmark_detect.finger_flexion
-
         if flexion_data:
             for hand_info in flexion_data:
                 print(f"检测到手 ({hand_info['Handedness']}):")
@@ -51,9 +53,15 @@ def main():
                 target_positions[0] = round(hand_info['Pinky_PIP_Angle']/180 * 1000)
 
                 print(f"  大指 PIP 角度: {hand_info['Thumb_IP_Angle']}°")
-                target_positions[4] = round(np.interp(hand_info['Thumb_IP_Angle'], [110, 180], [110, 770]))
+
+                target_positions[4] = round(np.interp(hand_info['Thumb_IP_Angle'], [110, 180], [1, 999]))
 
                 target_positions[5] = 0
+
+                # for i in range(6):
+                #     val = target_positions[i]
+                #     min_vals[i] = min(min_vals[i], val)
+                #     max_vals[i] = max(max_vals[i], val)
         
             cmd.angle_set=target_positions
             cmd.mode=0b0001
@@ -67,8 +75,10 @@ def main():
         else:
             print("Waitting for subscriber.")
                 
-        if cv2.waitKey(10) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             hand_landmark_detect.destory()
+            # print("当前关节最小值：", min_vals)
+            # print("当前关节最大值：", max_vals)
             break
     
     
