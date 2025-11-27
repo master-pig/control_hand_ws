@@ -5,7 +5,7 @@ from inspire_sdkpy import inspire_dds
 from pymodbus.client import ModbusTcpClient
 
 # ====== Modbus 配置 ======
-HAND_IP = "192.168.123.210"   # 灵巧手 IP
+HAND_IP = "192.168.123.211"   # 灵巧手 IP
 HAND_PORT = 6000
 ANGLE_SET = 1486
 FORCE_SET = 1498

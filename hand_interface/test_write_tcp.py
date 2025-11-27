@@ -7,7 +7,7 @@ from pymodbus.client import ModbusTcpClient
 import time
 
 # ====== 配置 ======
-HAND_IP = "192.168.123.210"   # 灵巧手 IP
+HAND_IP = "192.168.123.211"   # 灵巧手 IP
 HAND_PORT = 6000               # Modbus TCP 默认端口（说明书里可能是6000）
 FINGER_COUNT = 12               # 六个自由度（通常五指+掌）
 MOVE_DELAY = 1.0               # 每次动作等待时间（秒）

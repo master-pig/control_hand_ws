@@ -10,15 +10,16 @@ import time
 class Landmark():
     def __init__(self, model_asset_path = './gesture_recognition/hand_landmarker.task', num_hands = 1):
         base_options = python.BaseOptions(model_asset_path = model_asset_path,
-                                        delegate = python.BaseOptions.Delegate.GPU)
+                                        delegate = python.BaseOptions.Delegate.CPU)
         options = vision.HandLandmarkerOptions(base_options = base_options,
                                             num_hands = num_hands,
                                             running_mode=vision.RunningMode.IMAGE, # 保持 IMAGE 模式，但每次传入时间戳
+                                            
                                             )
         self.detector = vision.HandLandmarker.create_from_options(options)
 
         self.pTime = time.time()
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(10)
         if not self.cap.isOpened():
             print("错误：无法打开摄像头。请检查设备是否连接或被占用。")
 
